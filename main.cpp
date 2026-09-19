@@ -29,6 +29,13 @@ void display_order(Order*);
 
 int main() {
     // declarations
+    Order* orders = new Order[NR_ORDER];
+
+    for (int i = 0; i < NR_ORDER; i++)
+    {
+        input_order(&orders[i]);
+    }
+    
 
     return 0;
 }
@@ -37,22 +44,21 @@ int main() {
 //Function definition
 void input_order(Order* o)
 {
-    cout << "Please enter customer name: ";
-    cin >> o -> customer;
+    cout << "\nPlease enter customer name: ";
+    getline(cin, o->customer);
     cout << "Please enter the number of items in this order: ";
-    cin >> o -> nr_item;
+    int size;
+    cin >> size;
+    cin.ignore(); // handle extra \n
+    o->nr_item = size;
 
-    int size = o -> nr_item;
-    o -> items = new string [size];
-
-    cout << "Please enter the items in this order: ";
+    o->items = new string [size];
+    cout << "Please enter the items in this order: \n";
     for (int i = 0; i < size; i++)
     {
-        
+        cout << "Item #" << i + 1 << ": ";
+        getline(cin, o->items[i]);
     }
-    
-    cout << "Please enter the number of items in this order: ";
-    cin >> o->nr_item;
 }
 
 void display_order(Order* o)
