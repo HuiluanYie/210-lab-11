@@ -6,41 +6,37 @@ using namespace std;
 
 const int NR_ORDER = 3;
 
-struct Order
-{
+struct Order {
     // an order includes a customer, the number of items in it, and an array of items
     string customer;
     int nr_item;
-    string* items;
+    string * items;
 
-    ~Order()
-    {
-        if (items)
-        {
-            delete [] items;
+    // release the dynamically allocated item array.
+    ~Order() {
+        if (items) {
+            delete[] items;
         }
         items = nullptr;
     }
 };
 
 //Function prototype
-void input_order(Order*);
-void display_order(Order*);
+void input_order(Order * );
+void display_order(Order * );
 
 int main() {
     // declarations
-    Order* orders = new Order[NR_ORDER];
+    Order * orders = new Order[NR_ORDER];
 
-    for (int i = 0; i < NR_ORDER; i++)
-    {
-        input_order(&orders[i]);
+    for (int i = 0; i < NR_ORDER; i++) {
+        input_order( & orders[i]);
     }
 
     // Display every order.
     cout << "\n========== ORDER SUMMARY ==========\n";
-    for (int i = 0; i < NR_ORDER; i++)
-    {
-        display_order(&orders[i]);
+    for (int i = 0; i < NR_ORDER; i++) {
+        display_order( & orders[i]);
     }
 
     delete[] orders;
@@ -49,12 +45,13 @@ int main() {
     return 0;
 }
 
-
 //Function definition
-void input_order(Order* o)
-{
+void input_order(Order * o) {
+    // input_order() let user input the information for the order.
+    // arguments: a pointer to an Order object
+    // returns: none
     cout << "\nPlease enter customer name: ";
-    getline(cin, o->customer);
+    getline(cin, o -> customer);
 
     cout << "Please enter the number of items in this order: ";
     int size;
@@ -66,22 +63,23 @@ void input_order(Order* o)
         cin >> size;
     }
     cin.ignore(); // handle extra \n
-    o->nr_item = size;
+    o -> nr_item = size;
 
-    o->items = new string [size];
+    // dynamically allocate array for the items in this order
+    o -> items = new string[size];
     cout << "Please enter the items in this order: \n";
-    for (int i = 0; i < size; i++)
-    {
+    for (int i = 0; i < size; i++) {
         cout << "Item #" << i + 1 << ": ";
-        getline(cin, o->items[i]);
+        getline(cin, o -> items[i]);
     }
 }
 
-void display_order(Order* o)
-{
-    cout << "\nThe list of items in " << o->customer << "'s order: \n";
-    for (int i = 0; i < o->nr_item; i++)
-    {
-        cout << "Item #" << i + 1 << ": " << o->items[i] << endl;
+void display_order(Order * o) {
+    // display_order() displays one order.
+    // arguments: a pointer to an Order object
+    // returns: none
+    cout << "\nThe list of items in " << o -> customer << "'s order: \n";
+    for (int i = 0; i < o -> nr_item; i++) {
+        cout << "Item #" << i + 1 << ": " << o -> items[i] << endl;
     }
 }
