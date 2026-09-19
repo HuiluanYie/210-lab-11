@@ -35,7 +35,16 @@ int main() {
     {
         input_order(&orders[i]);
     }
-    
+
+    // Display every order.
+    cout << "\n========== ORDER SUMMARY ==========\n";
+    for (int i = 0; i < NR_ORDER; i++)
+    {
+        display_order(&orders[i]);
+    }
+
+    delete[] orders;
+    orders = nullptr;
 
     return 0;
 }
@@ -70,9 +79,9 @@ void input_order(Order* o)
 
 void display_order(Order* o)
 {
-    cout << "Hi " << o->customer << ", here's your list of items in your order: \n";
+    cout << "\nThe list of items in " << o->customer << "'s order: \n";
     for (int i = 0; i < o->nr_item; i++)
     {
-        cout << "Item #" << i + 1 << ": ";
+        cout << "Item #" << i + 1 << ": " << o->items[i] << endl;
     }
 }
